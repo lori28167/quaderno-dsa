@@ -1,8 +1,4 @@
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-#[tauri::command]
-fn greet(name: &str) -> String {
-    format!("Hello, {}! You've been greeted from Rust!", name)
-}
+mod speech;
 
 // GTK3 on Wayland outside GNOME (e.g. KDE Plasma) reports an unknown screen
 // resolution of -1 DPI; WebKitGTK turns it into a negative devicePixelRatio,
@@ -26,7 +22,8 @@ pub fn run() {
 
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet])
+        .manage(speech::Speech::default())
+        .invoke_handler(tauri::generate_handler![speech::tts_speak, speech::tts_stop])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

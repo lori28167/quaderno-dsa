@@ -32,8 +32,10 @@
             webkitgtk_4_1
             openssl
             dbus
-            speechd
+            rustPlatform.bindgenHook
           ];
+          # speech-dispatcher-sys (via il crate `tts`) genera i binding con bindgen
+          buildInputs = [ pkgs.speechd ];
           shellHook = ''
             export WEBKIT_DISABLE_COMPOSITING_MODE=1
             export PKG_CONFIG_PATH="${pkgs.openssl.dev}/lib/pkgconfig:$PKG_CONFIG_PATH"

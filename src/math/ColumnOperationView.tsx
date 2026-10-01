@@ -1,30 +1,12 @@
 import { Fragment, useMemo } from "react";
 import type { NodeViewProps } from "@tiptap/core";
 import { NodeViewWrapper } from "@tiptap/react";
+import { speak } from "../accessibility/speech";
+import { useSpeechSettings } from "../accessibility/speechSettings";
 import { computeOperation, type ColumnLayout, type OperationKind } from "./arithmetic";
 import ColumnGrid from "./ColumnGrid";
+import { SYMBOL, TITLE, describeOperation, spokenExpression } from "./labels";
 import "./ColumnOperation.css";
-
-const TITLE: Record<OperationKind, string> = {
-  addition: "Addizione",
-  subtraction: "Sottrazione",
-  multiplication: "Moltiplicazione",
-  division: "Divisione",
-};
-
-const SYMBOL: Record<OperationKind, string> = {
-  addition: "+",
-  subtraction: "−",
-  multiplication: "×",
-  division: ":",
-};
-
-const SPOKEN: Record<OperationKind, string> = {
-  addition: "più",
-  subtraction: "meno",
-  multiplication: "per",
-  division: "diviso",
-};
 
 const EMPTY_COLUMNS = 8;
 const EMPTY_LAYOUT: ColumnLayout = {
@@ -52,6 +34,7 @@ function ColumnOperationView({ node, updateAttributes, deleteNode, selected }: N
   const kind = node.attrs.kind as OperationKind;
   const operands = node.attrs.operands as string[];
   const showCarries = node.attrs.showCarries as boolean;
+  const { enabled: speechEnabled } = useSpeechSettings();
 
   const outcome = useMemo(
     () => (operands.every((o) => o.trim() !== "") ? computeOperation(kind, operands) : null),
@@ -137,11 +120,26 @@ function ColumnOperationView({ node, updateAttributes, deleteNode, selected }: N
           <ColumnGrid
             layout={outcome.value.layout}
             showCarries={showCarries}
-            label={`${operands.join(` ${SPOKEN[kind]} `)} uguale ${outcome.value.result}`}
+            label={describeOperation(kind, operands)}
           />
-          <p className="column-op__result">
-            Risultato: <strong>{outcome.value.result}</strong>
-          </p>
+          <div className="column-op__result-row">
+            <p className="column-op__result">
+              Risultato: <strong>{outcome.value.result}</strong>
+            </p>
+            {speechEnabled && (
+              <button
+                type="button"
+                className="column-op__speak"
+                onClick={() =>
+                  speak(
+                    `${spokenExpression(kind, operands)} uguale ${outcome.value.result}. ${outcome.value.steps.join(" ")}`,
+                  )
+                }
+              >
+                Leggi i passaggi
+              </button>
+            )}
+          </div>
           <details className="column-op__steps">
             <summary>Mostra i passaggi</summary>
             <ol>

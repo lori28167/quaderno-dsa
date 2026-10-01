@@ -2,6 +2,7 @@ import { Node, mergeAttributes } from "@tiptap/core";
 import { ReactNodeViewRenderer } from "@tiptap/react";
 import ColumnOperationView from "../../math/ColumnOperationView";
 import type { OperationKind } from "../../math/arithmetic";
+import { describeOperation } from "../../math/labels";
 
 declare module "@tiptap/core" {
   interface Commands<ReturnType> {
@@ -54,6 +55,10 @@ export const ColumnOperation = Node.create({
 
   renderHTML({ HTMLAttributes }) {
     return ["div", mergeAttributes(HTMLAttributes, { "data-type": "column-operation" })];
+  },
+
+  renderText({ node }) {
+    return describeOperation(node.attrs.kind, node.attrs.operands);
   },
 
   addNodeView() {

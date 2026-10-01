@@ -112,8 +112,16 @@
   color: var(--cg-hint);
 }
 
-.column-op__result {
+.column-op__result-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
   margin: 0.75rem 0 0.25rem;
+}
+
+.column-op__result {
+  margin: 0;
   font-size: 1.1rem;
 }
 
