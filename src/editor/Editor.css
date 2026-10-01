@@ -1,0 +1,21 @@
+.editor-wrapper {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.editor-content .ProseMirror {
+  min-height: 70vh;
+  padding: 2rem;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  outline: none;
+}
+
+.editor-content .ProseMirror p.is-editor-empty:first-child::before {
+  content: "Inizia a scrivere...";
+  float: left;
+  color: #9ca3af;
+  pointer-events: none;
+  height: 0;
+}
