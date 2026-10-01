@@ -2657,6 +2657,7 @@ dependencies = [
 name = "quaderno-dsa"
 version = "0.1.0"
 dependencies = [
+ "gtk",
  "serde",
  "serde_json",
  "tauri",

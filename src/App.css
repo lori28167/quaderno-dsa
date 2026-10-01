@@ -1,7 +1,8 @@
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
+  font-family: "Atkinson Hyperlegible", Verdana, "DejaVu Sans", "Noto Sans", sans-serif;
+  font-size: 20px;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
   font-weight: 400;
 
   color: #0f0f0f;
@@ -14,11 +15,13 @@
   -webkit-text-size-adjust: 100%;
 }
 
-.container {
+body {
   margin: 0;
-  padding-top: 4vh;
-  display: flex;
-  flex-direction: column;
+}
+
+.container {
+  display: block;
+  padding: 0 1rem 3rem;
 }
 
 @media (prefers-color-scheme: dark) {

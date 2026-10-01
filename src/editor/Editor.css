@@ -1,21 +1,55 @@
 .editor-wrapper {
-  width: 100%;
-  max-width: 860px;
+  display: block;
+  max-width: 1000px;
   margin: 0 auto;
+
+  --paper: #fdfdfb;
+  --paper-line: #dde6f2;
+  --paper-border: #cbd5e1;
+  --paper-hint: #6b7280;
+  --paper-square: 1.1rem;
 }
 
+@media (prefers-color-scheme: dark) {
+  .editor-wrapper {
+    --paper: #23272f;
+    --paper-line: #323a47;
+    --paper-border: #3b4658;
+    --paper-hint: #9aa3b2;
+  }
+}
+
+/* Foglio a quadretti: ogni riga di testo occupa due quadretti */
 .editor-content .ProseMirror {
   min-height: 70vh;
-  padding: 2rem;
-  font-size: 1.125rem;
-  line-height: 1.7;
+  margin-top: 1.5rem;
+  padding: calc(var(--paper-square) * 2) calc(var(--paper-square) * 2);
+  font-size: 1.2rem;
+  line-height: calc(var(--paper-square) * 2);
   outline: none;
+  border: 1px solid var(--paper-border);
+  border-radius: 6px;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--paper-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--paper-line) 1px, transparent 1px);
+  background-size: var(--paper-square) var(--paper-square);
+  cursor: text;
 }
 
-.editor-content .ProseMirror p.is-editor-empty:first-child::before {
-  content: "Inizia a scrivere...";
+.editor-content .ProseMirror:focus-within {
+  border-color: #1d4ed8;
+}
+
+.editor-content .ProseMirror p {
+  margin: 0;
+}
+
+/* Il suggerimento compare solo sull'ultima riga vuota del foglio */
+.editor-content .ProseMirror > p.is-empty:last-child::before {
+  content: attr(data-placeholder);
   float: left;
-  color: #9ca3af;
-  pointer-events: none;
   height: 0;
+  color: var(--paper-hint);
+  pointer-events: none;
 }
