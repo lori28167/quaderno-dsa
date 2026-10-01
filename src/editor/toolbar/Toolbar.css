@@ -11,6 +11,32 @@
   background: #f6f6f6;
 }
 
+.toolbar__file {
+  display: flex;
+  flex-basis: 100%;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.toolbar__file-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.toolbar__file-state {
+  color: #15803d;
+}
+
+.toolbar__file-state.is-dirty {
+  color: #b45309;
+}
+
+.toolbar__message {
+  flex-basis: 100%;
+  margin: 0;
+  font-weight: 600;
+}
+
 .toolbar__group {
   display: flex;
   flex-wrap: wrap;
@@ -109,7 +135,12 @@
     border-color: #4b5563;
   }
 
-  .toolbar__status {
+  .toolbar__status,
+  .toolbar__file-state.is-dirty {
     color: #fbbf24;
+  }
+
+  .toolbar__file-state {
+    color: #4ade80;
   }
 }

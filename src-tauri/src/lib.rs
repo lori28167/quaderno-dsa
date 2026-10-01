@@ -1,3 +1,4 @@
+mod notebook;
 mod speech;
 
 // GTK3 on Wayland outside GNOME (e.g. KDE Plasma) reports an unknown screen
@@ -21,9 +22,17 @@ pub fn run() {
     fix_unknown_screen_resolution();
 
     tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .manage(speech::Speech::default())
-        .invoke_handler(tauri::generate_handler![speech::tts_speak, speech::tts_stop])
+        .invoke_handler(tauri::generate_handler![
+            speech::tts_speak,
+            speech::tts_stop,
+            notebook::read_notebook,
+            notebook::write_notebook,
+            notebook::load_recovery,
+            notebook::save_recovery
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

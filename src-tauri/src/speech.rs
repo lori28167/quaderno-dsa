@@ -10,18 +10,25 @@ pub struct Speech(Mutex<Option<Tts>>);
 
 fn select_italian_voice(tts: &mut Tts) {
     let Ok(voices) = tts.voices() else { return };
-    if let Some(voice) = voices.iter().find(|v| v.language().primary_language() == "it") {
+    if let Some(voice) = voices
+        .iter()
+        .find(|v| v.language().primary_language() == "it")
+    {
         let _ = tts.set_voice(voice);
     }
 }
 
-fn with_tts<R>(speech: &Speech, f: impl FnOnce(&mut Tts) -> Result<R, tts::Error>) -> Result<R, String> {
+fn with_tts<R>(
+    speech: &Speech,
+    f: impl FnOnce(&mut Tts) -> Result<R, tts::Error>,
+) -> Result<R, String> {
     let mut guard = speech
         .0
         .lock()
         .map_err(|_| "La sintesi vocale si è bloccata: riavvia il quaderno.".to_string())?;
     if guard.is_none() {
-        let mut tts = Tts::default().map_err(|e| format!("Sintesi vocale non disponibile su questo computer ({e})."))?;
+        let mut tts = Tts::default()
+            .map_err(|e| format!("Sintesi vocale non disponibile su questo computer ({e})."))?;
         select_italian_voice(&mut tts);
         *guard = Some(tts);
     }
@@ -48,9 +55,15 @@ pub fn tts_speak(speech: State<Speech>, text: String, speed: f32) -> Result<(), 
 
 #[tauri::command]
 pub fn tts_stop(speech: State<Speech>) -> Result<(), String> {
-    let mut guard = speech.0.lock().map_err(|_| "La sintesi vocale si è bloccata.".to_string())?;
+    let mut guard = speech
+        .0
+        .lock()
+        .map_err(|_| "La sintesi vocale si è bloccata.".to_string())?;
     match guard.as_mut() {
-        Some(tts) => tts.stop().map(|_| ()).map_err(|e| format!("Errore della sintesi vocale: {e}")),
+        Some(tts) => tts
+            .stop()
+            .map(|_| ())
+            .map_err(|e| format!("Errore della sintesi vocale: {e}")),
         None => Ok(()),
     }
 }
