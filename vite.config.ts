@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-// @ts-expect-error type error without @types/node package
 import process from "node:process";
+import { fileURLToPath } from "node:url";
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
@@ -11,7 +11,10 @@ export default defineConfig(() => ({
   resolve: {
     alias: {
       // jsxgraph's package.json "exports" does not list its stylesheet.
-      "jsxgraph/distrib/jsxgraph.css": new URL("./node_modules/jsxgraph/distrib/jsxgraph.css", import.meta.url).pathname,
+      // fileURLToPath (not URL.pathname) also yields a valid path on Windows.
+      "jsxgraph/distrib/jsxgraph.css": fileURLToPath(
+        new URL("./node_modules/jsxgraph/distrib/jsxgraph.css", import.meta.url),
+      ),
     },
   },
 
