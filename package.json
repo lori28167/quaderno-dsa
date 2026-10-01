@@ -21,6 +21,8 @@
     "@tiptap/pm": "^3.31.3",
     "@tiptap/react": "^3.31.3",
     "@tiptap/starter-kit": "^3.31.3",
+    "chart.js": "^4.5.1",
+    "jsxgraph": "^1.13.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },

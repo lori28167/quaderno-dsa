@@ -9,6 +9,12 @@ import "./Toolbar.css";
 
 const OPERATIONS: OperationKind[] = ["addition", "subtraction", "multiplication", "division"];
 
+const GRAPHS = [
+  { type: "functionPlot", label: "Funzione" },
+  { type: "cartesianPlane", label: "Piano cartesiano" },
+  { type: "statChart", label: "Statistica" },
+];
+
 const SPEEDS = [
   { value: 0.7, label: "Lenta" },
   { value: 1, label: "Normale" },
@@ -77,6 +83,20 @@ function Toolbar({ editor, notebook }: Props) {
               {SYMBOL[kind]}
             </span>
             {TITLE[kind]}
+          </button>
+        ))}
+      </div>
+
+      <div className="toolbar__group" role="group" aria-label="Grafici">
+        <span className="toolbar__label">Grafici</span>
+        {GRAPHS.map((graph) => (
+          <button
+            key={graph.type}
+            type="button"
+            className="toolbar__button"
+            onClick={() => editor.chain().focus().insertBlock({ type: graph.type }).run()}
+          >
+            {graph.label}
           </button>
         ))}
       </div>

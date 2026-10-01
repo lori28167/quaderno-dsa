@@ -1,0 +1,298 @@
+.graph-block {
+  --gb-ink: #1f2937;
+  --gb-surface: #ffffff;
+  --gb-border: #cbd5e1;
+  --gb-accent: #1d4ed8;
+  --gb-error: #b45309;
+  --gb-hint: #4b5563;
+
+  margin: 1.25rem 0;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--gb-border);
+  border-radius: 12px;
+  background: var(--gb-surface);
+  color: var(--gb-ink);
+  line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .graph-block {
+    --gb-ink: #f3f4f6;
+    --gb-surface: #1f2430;
+    --gb-border: #3b4658;
+    --gb-accent: #93c5fd;
+    --gb-error: #fbbf24;
+    --gb-hint: #b4bcc8;
+  }
+}
+
+.graph-block.is-selected {
+  outline: 3px solid var(--gb-accent);
+  outline-offset: 2px;
+}
+
+.graph-block button,
+.graph-block select {
+  font: inherit;
+  padding: 0.3rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid var(--gb-border);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.graph-block button:hover,
+.graph-block button:focus-visible {
+  border-color: var(--gb-accent);
+}
+
+.graph-block button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.graph-block select option {
+  color: #111827;
+}
+
+.graph-block h4 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.graph-block__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.graph-block__title {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.graph-block__delete {
+  margin-left: auto;
+}
+
+.graph-block__fields {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.graph-block__error {
+  flex-basis: 100%;
+  margin: 0.25rem 0 0;
+  color: var(--gb-error);
+  font-weight: 600;
+}
+
+.graph-block__hint {
+  margin: 0.5rem 0;
+  color: var(--gb-hint);
+}
+
+.graph-block__details {
+  margin-top: 0.5rem;
+}
+
+.graph-block__details summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.graph-input {
+  width: 10rem;
+  padding: 0.35rem 0.55rem;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  border: 2px solid var(--gb-border);
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+}
+
+.graph-input:focus {
+  outline: none;
+  border-color: var(--gb-accent);
+}
+
+.graph-input--wide {
+  width: 22rem;
+  max-width: 100%;
+}
+
+.graph-input--small {
+  width: 4.5rem;
+}
+
+.graph-function {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.graph-function__label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.graph-swatch {
+  display: inline-block;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 4px;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.graph-range {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.graph-range__gap {
+  margin-left: 1rem;
+}
+
+/* La superficie di disegno resta sempre chiara, come un foglio stampato */
+.graph-board {
+  width: 100%;
+  height: 26rem;
+  border: 1px solid var(--gb-border);
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.graph-board--square {
+  height: 32rem;
+}
+
+.graph-chart {
+  position: relative;
+  height: 22rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border: 1px solid var(--gb-border);
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.graph-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.graph-list {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+}
+
+.graph-list__row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.4rem;
+}
+
+.graph-list__row strong {
+  min-width: 1.6rem;
+}
+
+.graph-list__shape {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.graph-list__shape .graph-swatch {
+  margin-top: 0.3rem;
+}
+
+.graph-list__shape button {
+  margin-left: auto;
+}
+
+.graph-list__details {
+  margin: 0.2rem 0 0;
+  padding-left: 1.2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.graph-shape-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.graph-shape-form label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.graph-title-field {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+}
+
+.graph-table {
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.graph-table th,
+.graph-table td {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid var(--gb-border);
+  text-align: right;
+}
+
+.graph-table thead th {
+  text-align: left;
+}
+
+.graph-table--edit td,
+.graph-table--edit th {
+  border: none;
+  padding: 0.2rem 0.3rem;
+  text-align: left;
+}
+
+.graph-summary {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 1.25rem;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.graph-summary dt {
+  font-weight: 600;
+}
+
+.graph-summary dd {
+  margin: 0;
+}

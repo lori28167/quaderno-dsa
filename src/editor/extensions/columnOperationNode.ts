@@ -70,7 +70,7 @@ export const ColumnOperation = Node.create({
       insertColumnOperation:
         (kind) =>
         ({ commands }) =>
-          commands.insertContent({ type: this.name, attrs: { kind, operands: ["", ""] } }),
+          commands.insertBlock({ type: this.name, attrs: { kind, operands: ["", ""] } }),
     };
   },
 });

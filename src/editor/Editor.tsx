@@ -3,6 +3,8 @@ import StarterKit from "@tiptap/starter-kit";
 import { Placeholder } from "@tiptap/extensions";
 import { useNotebook } from "../notebook/useNotebook";
 import { ColumnOperation } from "./extensions/columnOperationNode";
+import { CartesianPlane, FunctionPlot, StatChart } from "./extensions/graphNodes";
+import { InsertBlock } from "./extensions/insertBlock";
 import Toolbar from "./toolbar/Toolbar";
 import "./Editor.css";
 
@@ -12,6 +14,10 @@ function Editor() {
       StarterKit,
       Placeholder.configure({ showOnlyCurrent: false, placeholder: "Scrivi qui…" }),
       ColumnOperation,
+      FunctionPlot,
+      CartesianPlane,
+      StatChart,
+      InsertBlock,
     ],
     content: "",
     autofocus: true,
